@@ -1,0 +1,47 @@
+#Funcao responsavel por gerar o padrao que recebe:
+#Vetor com os nos do automato
+#Matriz de transicao dos nos
+#Valor n iteracoes do padrao
+#Estado inicial do padrao
+generate_pattern <- function(nos, mt, n, e) {
+  #Adicionar estado inicial ao vetor
+  ve <-matrix(c(0,e), ncol = 2)
+
+  #Loop para gerar o padrao 
+  for (i in 1:(n-1)) {
+    #Gerar numero aleatorio entre 0 e 1
+    x <-runif(1, 0, 1)
+    
+    #Contador que percorre as linhas do estado atual
+    j = 1
+    
+    #Probabilidade de ir p/ primeiro n�
+    p = mt[nos[j],e]
+    
+    #Teste da probabilidade
+    while (x > p) {
+      j = j + 1
+      p = p + mt[nos[j],e]
+    }
+
+    #Atualizar o n� atual e adiciona ao vetor
+    e = nos[j]
+    ve <-rbind(ve, c(i, e))
+  }
+
+  #Retorna um vetor com os estados
+  return(ve)
+}
+
+#STEMPLOT
+#Funcao geradora do plot
+stemPlot <- function(x,y,pch=20,linecol=1,clinecol=1,...){
+  if (missing(y)){
+    y = x
+    x = 1:length(x) }
+  plot(x,y,pch=pch,xlab="itera��o",ylab="valor",...)
+  for (i in 1:length(x)){
+    lines(c(x[i],x[i]), c(0,y[i]),col=linecol)
+  }
+  lines(c(x[1]-2,x[length(x)]+2), c(0,0),col=clinecol)
+}

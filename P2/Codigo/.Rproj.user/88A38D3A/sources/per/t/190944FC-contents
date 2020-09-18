@@ -1,0 +1,80 @@
+split_signal <- function(L, S) {
+  #Li é uma matrix cujas linhas são os splits para cada nó do automato
+  Li <-matrix(0, nrow=length(S), ncol=dim(L)[1])
+  rownames(Li) <-S
+  #Percorre o padrão
+  for (i in 1:dim(L)[1]) {
+    Li[L[i, 2], i] = 1
+  }
+  return(Li)
+}
+
+
+scan_bursts <- function(L, n) {
+  Ls <-vector()
+  for (i in 1:n) {
+    if (L[i] == 1) {
+      i0 = 1
+      while ((L[i] == 1) & (i < n)) {
+        i = i + 1
+      }
+      if ((i == n) & (L[i] == 1)) {
+        i = n + 1
+      }
+      bs = i - i0
+      if (bs > 0) {
+        Ls <- append(Ls,bs)
+      }
+    }
+    i = i + 1
+  }
+  return(Ls)
+}
+
+
+scan_intersymbols <- function(L, n) {
+  Ls <-vector()
+  for (i in 1:n) {
+    if (L[i] == 1) {
+       bs = 0
+       while ((L[i] == 0) & (i < n)) {
+         i = i + 1
+       }
+       if ((i == n) & (L[i] == 1)) {
+         bs = n 
+       }else if ((i == n) & (L[i] == 0)) {
+         bs = 0
+       }else if ((i < n) & (L[i] == 1)) {
+         bs = i  
+       }
+       if (bs > 0) {
+         Ls <-c(Ls, bs)
+       }
+    }
+    i = i + 1
+  }
+  return(Ls)
+} 
+
+
+visibility <- function(L, n) {
+  A <-matrix( rep( 0, len=(n*n)), nrow = n)
+  for (j in 2:n) {
+    for (i in 1:(j-1)) {
+      flag = 1
+      k = i + 1
+      while ((k <= (j-1)) & (flag == 1)) {
+        aux = L[j] + (L[i] - L[j])*(j-k)/(j-i)
+        if (L[k] >= aux) {
+          flag = 0
+        }
+        k = k + 1
+      }
+      if (flag == 1) {
+        A[i,j] = 1
+        A[j,i] = 1
+      }
+    }
+  }
+  return(A)
+}

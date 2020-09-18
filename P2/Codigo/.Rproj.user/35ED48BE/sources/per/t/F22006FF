@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1592518036769.000,
+    "dirty" : false,
+    "encoding" : "ISO8859-1",
+    "folds" : "",
+    "hash" : "1123982426",
+    "id" : "F22006FF",
+    "lastKnownWriteTime" : 1592518236,
+    "last_content_update" : 1592518236366,
+    "path" : "C:/Users/Karen/Desktop/XUSP/analise_reco_padroes/P2/Codigo/Item2.R",
+    "project_path" : "Item2.R",
+    "properties" : {
+        "cursorPosition" : "33,0",
+        "scrollLine" : "0"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
